@@ -11,9 +11,13 @@ export class UserController {
 
   @Post()
   public createUser(@Body() user: User): User {
-    const userCreated = this.userService.createUser(user);
+    try {
+      const userCreated = this.userService.createUser(user);
 
-    return userCreated;
+      return userCreated;
+    } catch(error) {
+      return error;
+    }
   }
 
   @Get()
