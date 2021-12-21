@@ -14,10 +14,10 @@ export class UserController {
     try {
       const userCreated = this.userService.createUser(user);
 
-      return userCreated;
+    return userCreated;
     } catch(error) {
-      return error;
-    }
+      throw new Error("Error in create User");
+    }   
   }
 
   @Get()

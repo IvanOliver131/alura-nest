@@ -1,12 +1,19 @@
+import { Exclude, Expose } from 'class-transformer';
 import { IsNotEmpty, IsString, IsEmail } from 'class-validator';
+import { IsUserNameUnique } from './is-user-name-unique.validator';
 
 export class User {
   id: number;
 
+  @IsUserNameUnique({
+    message: "userName need to be unique"
+  })
   @IsNotEmpty({
     message: "userName is required"
   })
-  @IsString()
+  @IsString({
+    message: "userName need to be a string"
+  })
   userName: string;
 
   @IsEmail({
@@ -14,6 +21,14 @@ export class User {
   })
   email: string;
 
+  // @Expose({
+  //   // Transforma o nome da propriedade na hora que for serializado
+  //   name: 'password'
+  // })
+  @Exclude({
+    // Exclui a propriedade senha no momento de serialização
+    toPlainOnly: true
+  })
   @IsNotEmpty({
     message: "password is required"
   })
@@ -21,10 +36,10 @@ export class User {
   password: string;
 
   @IsNotEmpty({
-    message: "completeName is required"
+    message: "fullName is required"
   })
   @IsString()
-  completeName: string;
+  fullName: string;
   
   createDate: Date; 
 }
